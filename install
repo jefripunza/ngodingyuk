@@ -9,7 +9,7 @@ pkg install php -y  && pkg install mariadb -y && pkg install apache2 -y;
 # pkg install nodejs -y;
 #
 #
-clear;
+clear
 #
 #
 ## Paket
@@ -32,7 +32,7 @@ mkdir ngodingyuk/project;
 # mkdir ngodingyuk/project/react-native
 #
 #
-clear;
+clear
 #
 #
 ## install phpmyadmin
@@ -52,7 +52,7 @@ mv phpMyAdmin-5.0.4-all-languages .phpmyadmin;
 mv ngodingyuk/config.inc.php .phpmyadmin/config.inc.php;
 #
 #
-clear;
+clear
 #
 #
 ## install ICEcoder
