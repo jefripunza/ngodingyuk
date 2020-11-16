@@ -1,0 +1,5 @@
+nohup apachectl -k start                        > ~/.ngoding-debug/apache2.log          2>&1 &
+nohup php -S 0.0.0.0:8001 -t ~/.icecoder/       > ~/.ngoding-debug/icecoder.log         2>&1 &
+nohup php -S 0.0.0.0:8002 -t ~/.phpmyadmin/     > ~/.ngoding-debug/phpmyadmin.log       2>&1 &
+nohup php -S 0.0.0.0:8004 -t ~/.ngoding-debug/  > ~/.ngoding-debug/ngoding-debug.log    2>&1 &
+nohup mysqld_safe                               > ~/.ngoding-debug/mysqld_safe.log      2>&1 &
