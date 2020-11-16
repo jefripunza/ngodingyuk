@@ -1,7 +1,7 @@
 ### PERINTAH DI DALAM (MAIN RUN)
 ## INSTALL PKG
 # WAJIB
-pkg install wget -y && pkg install zip -y && pkg install git -y
+pkg install wget -y && pkg install zip -y
 pkg install php -y  && pkg install mariadb -y && pkg install apache2 -y
 # pkg install python -y
 
