@@ -17,19 +17,19 @@ clear
 cd
 
 # pindah file ngodingyuk (shell) ke main home (cd) dan rename menjadi start-server
-mv ~/ngodingyuk/start-server ~/start-server
+mv ngodingyuk/start-server start-server
 
 # buat folder wajib
-ln -s /data/data/com.termux/files/usr/share/apache2/default-site/htdocs ~/ngodingyuk/public_html
-mkdir ~/.ngoding-debug && mkdir ~/.ngodingyuk
+ln -s /data/data/com.termux/files/usr/share/apache2/default-site/htdocs ngodingyuk/public_html
+mkdir .ngoding-debug && mkdir .ngodingyuk
 
 # pindahkan file ok kedalam folder .ngodingyuk
-mv ~/ngodingyuk/ok ~/.ngodingyuk/ok
+mv ngodingyuk/ok .ngodingyuk/ok
 
 # buat folder tambahan (Node.JS) (if development => SKIP)
-mkdir ~/ngodingyuk/project
-# mkdir ~/ngodingyuk/project/reactjs
-# mkdir ~/ngodingyuk/project/react-native
+mkdir ngodingyuk/project
+# mkdir ngodingyuk/project/reactjs
+# mkdir ngodingyuk/project/react-native
 
 
 clear
@@ -46,10 +46,10 @@ unzip phpMyAdmin-5.0.4-all-languages.zip
 rm phpMyAdmin-5.0.4-all-languages.zip
 
 # rename folder yang sudah di unzip
-mv ~/phpMyAdmin-5.0.4-all-languages ~/.phpmyadmin
+mv phpMyAdmin-5.0.4-all-languages .phpmyadmin
 
 # move config.inc.php to .phpmyadmin
-mv ~/ngodingyuk/config.inc.php ~/.phpmyadmin/config.inc.php 
+mv ngodingyuk/config.inc.php .phpmyadmin/config.inc.php 
 
 
 clear
@@ -60,12 +60,12 @@ clear
 git clone https://github.com/icecoder/ICEcoder.git .icecoder
 
 # hapus file Settings.php asli
-rm ~/.icecoder/classes/Settings.php
+rm .icecoder/classes/Settings.php
 
 # move file Settings.php to .icecoder
-mv ~/ngodingyuk/Settings.php ~/.icecoder/classes/Settings.php 
+mv ngodingyuk/Settings.php .icecoder/classes/Settings.php 
 
 
 ## finish (clear)
-rm ~/ngodingyuk/install
-rm -rf ~/ngodingyuk/.git
+rm ngodingyuk/install
+# rm -rf ngodingyuk/.git
