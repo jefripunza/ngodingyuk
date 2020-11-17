@@ -181,7 +181,6 @@ if sys.argv[0] != "install.py":
     banner()
     ## INSTALL PKG
     # WAJIB
-    install("git")
     install("wget")
     install("zip")
     install("php")
@@ -271,6 +270,6 @@ else:
             bye()
             sys.exit()
         except Exception as x:
-            print('x: ' + x)
+            print('x: ' + str(x))
             print('Err: ' + x.__class__.__name__)
             sys.exit()
