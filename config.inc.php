@@ -58,4 +58,4 @@ $cfg['Servers'][$i]['favorite'] = 'pma__favorite';
  * End of servers configuration
  */
 
-?>
+?> 
