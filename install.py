@@ -11,7 +11,8 @@ try:
     from requests.packages.urllib3.util.retry import Retry
 except ImportError:
     os.system('pip2 install requests')
-    print (B+"\n["+W+"="+B+"] "+G+"install requirements module success, run kembali\n")
+    # print (B+"\n["+W+"="+B+"] "+G+"install requirements module success, run kembali\n")
+    os.system('python2 '+sys.argv[0])
     sys.exit()
 ####################################################################
 #                             Function
@@ -21,7 +22,7 @@ def terminal_clear():
     os.system('clear')
 def install(pkg):
     terminal_clear()
-    print ("INSTALL PKG... "+pkg)
+    print (Y+"INSTALL PKG... "+pkg+R+'\nexecute: '+Y+'pkg install '+pkg+' -y\n'+G)
     os.system('pkg install '+pkg+' -y')
 def rename(awal,akhir):
     os.system('cd && mv '+awal+' '+akhir)
@@ -42,7 +43,7 @@ def rmrf(link):
 def copy(awal,akhir):
     os.system('cd && cp '+awal+' '+akhir)
 def git(link,rename):
-    os.system('cd && git clone '+ link + rename)
+    os.system('cd && git clone '+ link + " " + rename)
 
 def kill_process(process):
     os.system("ps | grep "+process+" | killall -9 "+process)
@@ -82,10 +83,15 @@ def get_info():
         t1 = time.time()
         print('Time Took: ' + str(round(t1 - t0, 2)) + ' seconds')
         time.sleep(2)
-def cek_lokal_version():
-    with open('info.json') as json_file:
+def cek_local_info():
+    nama_file = ""
+    if sys.argv[0] == "install.py":
+        nama_file = "info.json"
+    else:
+        nama_file = "../.ngodingyuk/info.json"
+    with open(nama_file) as json_file:
         data = json.load(json_file)
-        return data['version']
+        return data
 def start_server():
     execute("nohup apachectl -k start                        > ~/.ngoding-debug/apache2.log          2>&1 &")
     execute("nohup php -S 0.0.0.0:8001 -t ~/.blackicecoder/  > ~/.ngoding-debug/blackicecoder.log    2>&1 &")
@@ -121,7 +127,7 @@ sys . setdefaultencoding ( 'utf8' )
 #                            Setup Style
 def banner():
     date = time.asctime()
-    # terminal_clear()
+    terminal_clear()
     print (Y+"\n0{==========================================================}0")
     print (  Y+"|                  "+date+"                  |")
     print (  Y+"| "+G+"                          ___                         __  "+Y+" |")
@@ -131,7 +137,7 @@ def banner():
     print (  Y+"| "+G+"/_/ /_/\__, /\____/\__,_/_/_/ /_/\__, /\__, /\__,_/_/|_| "+Y+"  |")
     print (  Y+"| "+G+"      /____/                    /____//____/"+Y+"               |")
     print (  Y+"|                                                            |")
-    print (  Y+"| "+R+"version: "+W+info['version']+"            "+W+" Author : Jefri Herdi Triyanto"+Y+"   |")
+    print (  Y+"| "+R+"version: "+W+cek_local_info()['version']+"            "+W+" Author : Jefri Herdi Triyanto"+Y+"   |")
     print (  Y+"|                                                            |")
 
 def menu():
@@ -143,13 +149,15 @@ def menu():
     if select_menu == 0: # pilihan home
         # reset variable pointer
         pilih_new_project = 0
-        if cek_lokal_version() == info['version']:
+        if cek_local_info()['version'] == info['version']:
             if findThisProcess("php")==0 and findThisProcess("mysqld_safe")==0 and findThisProcess("mariadbd")==0 :
                 print (  Y+"   ["+W+"1"+Y+"] "+C+"start server!")
             else:
                 print (  Y+"   ["+W+"1"+Y+"] "+C+"stop server!")
             print (  Y+"   ["+W+"2"+Y+"] "+C+"new project (*)")
             print (  Y+"   ["+W+"3"+Y+"] "+C+"open project (*)")
+            print (  Y+"   ["+W+"4"+Y+"] "+C+"delete project (*)")
+            print (  Y+"   ["+W+"5"+Y+"] "+C+"uninstall (?)")
         else:
             print (  Y+"   ["+W+"1"+Y+"] "+C+"update! ("+G+info['version']+B+")")
         
@@ -186,22 +194,18 @@ if sys.argv[0] == "install.py":
     install("php")
     install("mariadb")
     install("apache2")
-    
     # TAMBAHAN, (if development => SKIP)
     # install("nodejs") # cek lagi nama pkg nya
     
-    
-    ## RENAME FILE
-    rename("ngodingyuk/install.py",".ngodingyuk/ok.py")
-    
-    ## BUAT FOLDER WAJIB
+    ## BUAT FOLDER
+    # wajib
     buat_pintasan("/data/data/com.termux/files/usr/share/apache2/default-site/htdocs","ngodingyuk/public_html")
     mkdir(".ngoding-debug")
     mkdir(".ngodingyuk")
-    # buat folder tambahan (Node.JS) (if development => SKIP)
-    # mkdir("ngodingyuk/project")
-    # mkdir("ngodingyuk/project/reactjs")
-    # mkdir("ngodingyuk/project/react-native")
+    # tambahan (Node.JS) (if development => SKIP)
+    mkdir("ngodingyuk/project")
+    mkdir("ngodingyuk/project/reactjs")
+    mkdir("ngodingyuk/project/react-native")
     
     
     ## INSTALL PHPMYADMIN
@@ -217,10 +221,12 @@ if sys.argv[0] == "install.py":
     git("https://github.com/jefripunza/BLACKICEcoder.git",".blackicecoder")
     
     
-    
     ## FINISHING
+    move("ngodingyuk/info.json",".ngodingyuk/info.json")
     rmrf("ngodingyuk/.git")
-    move("ngodingyuk/install.py",".ngodingyuk/ok.py")
+    rename("ngodingyuk/install.py","ngodingyuk/start.py")
+    
+    execute("cd && python2 ngodingyuk/start.py")
     
     sys.exit()
 else:
@@ -246,7 +252,7 @@ else:
                     else:
                         select_menu = 0
                 elif select_menu == 1: # (run) start server | stop server | update =================
-                    if cek_lokal_version() == info['version']:
+                    if cek_local_info()['version'] == info['version']:
                         if findThisProcess("php")==0 and findThisProcess("mysqld_safe")==0 and findThisProcess("mariadbd")==0 :
                             # if start server
                             start_server()
@@ -257,10 +263,10 @@ else:
                         # if update
                     select_menu = 0 # setelah selesai start server | stop server | update, auto back
                 elif select_menu == 2: # new project ~> pilih project ==============================
-                    if pilihan_str == "0": # back
+                    if pilihan_str == 0: # back
                         select_menu = 0
                 elif select_menu == 3: # open project ~> pilih project ==============================
-                    if pilihan_str == "0": # back
+                    if pilihan_str == 0: # back
                         select_menu = 0
                 jangan_kosong = True
             else:
