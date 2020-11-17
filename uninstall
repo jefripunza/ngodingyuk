@@ -1,6 +1,0 @@
-cd;
-rm -rf .icecoder;
-rm -rf .phpmyadmin;
-rm -rf .ngoding-debug;
-rm -rf .ngodingyuk;
-rm -rf ngodingyuk;
