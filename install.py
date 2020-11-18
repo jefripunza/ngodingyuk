@@ -8,10 +8,10 @@ s_check = "\xE2\x9C\x94"; s_cross = "\xE2\x9D\x8C"
 ####################################################################
 #                           Import Module
 import sys , time , os , json , subprocess , commands
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 try:
     import requests
+    from requests.adapters import HTTPAdapter
+    from requests.packages.urllib3.util.retry import Retry
     import netifaces as ni
 except ImportError:
     os.system('pip2 install requests')
@@ -178,7 +178,7 @@ def installation():
     
     
     ## file manager
-    git("https://github.com/jefripunza/responsive-file-manager-ngodingyuk.git",".filemanager")
+    git("https://github.com/jefripunza/file-manager-ngodingyuk.git",".filemanager")
     
     
     
