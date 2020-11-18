@@ -230,6 +230,7 @@ def uninstall():
     
     thanks()
     anonymous()
+    time.sleep(3)
     bye()
     sys.exit()
 ####################################################################
