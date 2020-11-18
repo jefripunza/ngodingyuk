@@ -7,7 +7,7 @@ B = "\033[34m"; Y = "\033[33m"; G = "\033[32m"; W = "\033[0m"; R = "\033[31m"; C
 s_check = "\xE2\x9C\x94"; s_cross = "\xE2\x9D\x8C"
 ####################################################################
 #                           Import Module
-import sys , time , os , json , subprocess , commands
+import sys , time , os , json , subprocess , commands , socket
 try:
     import requests
     from requests.adapters import HTTPAdapter
@@ -16,13 +16,23 @@ try:
 except ImportError:
     os.system('pip2 install requests')
     os.system('pip2 install netifaces')
-    # print (B+"\n["+W+"="+B+"] "+G+"install requirements module success, run kembali\n")
     os.system('python2 '+sys.argv[0])
     sys.exit()
 ####################################################################
 #                        Set Default encoding
 reload (sys)
 sys . setdefaultencoding ( 'utf8' )
+####################################################################
+#                         Initial Definition
+jangan_kosong = True
+select_menu = 0
+
+## sub menu
+new_project_pilih = 0
+
+hostname = socket.gethostname()
+
+uninstall_ok = False
 ####################################################################
 #                              Function
 def execute(cmd):
@@ -32,7 +42,7 @@ def terminal_clear():
     
 def install(pkg):
     terminal_clear()
-    print (Y + "INSTALL PKG... " + pkg + R + '\nexecute: ' + Y + 'pkg install ' + pkg + ' -y\n' + G)
+    print (Y + "INSTALL PKG... " + pkg + R + '\nexecute: ' + Y + 'pkg install ' + pkg + ' -y\n' + R)
     execute('pkg install '+pkg+' -y')
 def wget(link):
     terminal_clear()
@@ -99,6 +109,8 @@ def get_info():
         t1 = time.time()
         print('Time Took: ' + str(round(t1 - t0, 2)) + ' seconds')
         time.sleep(2)
+info = get_info() # dapatkan info dari database
+
 def cek_local_info():
     nama_file = ""
     if sys.argv[0] == "install.py":
@@ -108,6 +120,7 @@ def cek_local_info():
     with open(nama_file) as json_file:
         data = json.load(json_file)
         return data
+
 def local_ip():
     try:
         return ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
@@ -116,7 +129,7 @@ def local_ip():
             return ni.ifaddresses('wifi0')[ni.AF_INET][0]['addr']
 
 def start_server():
-    execute("nohup apachectl -k start                        > ~/.ngoding-debug/apache2.log          2>&1 &")
+    execute("nohup apachectl start                           > ~/.ngoding-debug/apache2.log          2>&1 &")
     execute("nohup php -S 0.0.0.0:8001 -t ~/.blackicecoder/  > ~/.ngoding-debug/blackicecoder.log    2>&1 &")
     execute("nohup php -S 0.0.0.0:8002 -t ~/.phpmyadmin/     > ~/.ngoding-debug/phpmyadmin.log       2>&1 &")
     execute("nohup php -S 0.0.0.0:8003 -t ~/.filemanager/    > ~/.ngoding-debug/filemanager.log      2>&1 &")
@@ -127,7 +140,7 @@ def stop_server():
     kill_process("php")
     kill_process("mysqld_safe")
     kill_process("mariadbd")
-    execute("nohup apachectl -k stop > ~/.ngoding-debug/apache2.log 2>&1 &")
+    execute("nohup apachectl stop > ~/.ngoding-debug/apache2.log 2>&1 &")
 
 def findThisProcess( process_name ):
     ps     = subprocess.Popen("ps -eaf | grep '"+process_name+"' | grep -v grep | wc -l", shell=True, stdout=subprocess.PIPE)
@@ -135,6 +148,7 @@ def findThisProcess( process_name ):
     ps.stdout.close()
     ps.wait()
     return int(output)
+
 def update_file_info_local():
     rm("./ngodingyuk/info.json")
     wget("https://raw.githubusercontent.com/jefripunza/ngodingyuk-termux/main/info.json")
@@ -190,9 +204,8 @@ def installation():
     move("ngodingyuk/info.json",".ngodingyuk/info.json")
     # rename install.py ~> start.py
     rename("ngodingyuk/install.py","ngodingyuk/start.py")
-    # mysql crack root 2x (agar bisa membuka phpmyadmin)
-    execute('mysql -u $(whoami) -e "use mysql; set password for \'root\'@\'localhost\' = password(\'\'); flush privileges; quit;"')
-    execute('mysql -u $(whoami) -e "use mysql; set password for \'root\'@\'localhost\' = password(\'\'); flush privileges; quit;"')
+    # mysql crack root (agar bisa membuka phpmyadmin)
+    execute('mysql -u '+hostname+' -e "use mysql; set password for \'root\'@\'localhost\' = password(\'\'); flush privileges;"')
     # hapus sampah
     rmrf("ngodingyuk/.git")
     
@@ -219,17 +232,6 @@ def uninstall():
     anonymous()
     bye()
     sys.exit()
-####################################################################
-#                         Initial Definition
-jangan_kosong = True
-select_menu = 0
-
-## sub menu
-new_project_pilih = 0
-
-info = get_info() # dapatkan info dari database
-
-uninstall_ok = False
 ####################################################################
 #                            Setup Style
 def banner():
