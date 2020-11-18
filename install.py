@@ -86,6 +86,7 @@ def requests_retry_session(
     return session
 
 def get_info():
+    terminal_clear()
     t0 = time.time()
     try:
         print("Get info from database...")
@@ -244,7 +245,8 @@ def banner():
     print (  Y+"|                                                            |")
 
 def bye():
-    terminal_clear()
+    if uninstall_ok == False:
+        terminal_clear()
     print (Y+"\n0{==========================================================}0")
     print (  Y+"|                                                            |")
     print (  Y+"| "+G+"           ____  ___   ___  ____  ______   _______   "+Y+"      |")
@@ -256,7 +258,8 @@ def bye():
     print (  Y+"0{==========================================================}0"+W)
     
 def thanks():
-    terminal_clear()
+    if uninstall_ok == False:
+        terminal_clear()
     print (Y+"\n0{==========================================================}0")
     print (  Y+"|                                                            |")
     print (  Y+"| "+G+"     _____ _   _    _    _   _ _  __ __   _____  _   _    "+Y+" |")
