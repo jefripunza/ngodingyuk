@@ -1,5 +1,28 @@
 {
-    "version": "1.0.0", 
+    "version": "1.0.0",
     "phpmyadmin": "5.0.4",
-    "blackicecoder": "1.0"
+    "blackicecoder": "1.0",
+    "new_project": [
+        {
+            "name": "NodeJs",
+            "cmd": ""
+        },
+        {
+            "name": "ReactJS",
+            "cmd": ""
+        },
+        {
+            "name": "React Native",
+            "cmd": ""
+        }
+    ],
+    "whats_new": [
+        {
+            "version": "1.0.0",
+            "update": [
+                "Awal pembuatan! November 2020",
+                "include project: NodeJS, ReactJS, dan React Native"
+            ]
+        }
+    ]
 }
