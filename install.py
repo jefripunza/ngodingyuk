@@ -1,8 +1,5 @@
 #! usr/bin/python2
 ####################################################################
-#                          My Link Website
-my_website = "https://p34c3-khyrein.linuxploit.com" # yeah, it's me :V
-####################################################################
 #                               Color
 B = "\033[34m"; Y = "\033[33m"; G = "\033[32m"; W = "\033[0m"; R = "\033[31m"; C = "\033[36m"
 ####################################################################
@@ -90,7 +87,7 @@ def get_info():
     t0 = time.time()
     try:
         print("Get info from database...")
-        response = requests_retry_session().get(my_website+"/ngodingyuk/info/",timeout=5,headers={'User-Agent': 'Mozilla/5.0'})
+        response = requests_retry_session().get("https://raw.githubusercontent.com/jefripunza/ngodingyuk-termux/main/info.json",timeout=5,headers={'User-Agent': 'Mozilla/5.0'})
         return json.loads(response.text)
     except Exception as x:
         print('It failed :( ' + x.__class__.__name__ + ', status:' + str(response.status_code) + '\ncontent:\n' + response.text)
@@ -140,8 +137,7 @@ def findThisProcess( process_name ):
     return int(output)
 def update_file_info_local():
     rm("./ngodingyuk/info.json")
-    wget(my_website+"/ngodingyuk/info/")
-    move("index.html","./ngodingyuk/info.json")
+    wget("https://raw.githubusercontent.com/jefripunza/ngodingyuk-termux/main/info.json")
 
 ####################################################################
 #                         Installation
@@ -152,7 +148,7 @@ def installation():
     install("zip")
     install("php")
     install("mariadb")
-    install("apache2")
+    install("php-apache")
     # TAMBAHAN, (if development => SKIP)
     # install("nodejs") # cek lagi nama pkg nya
     
@@ -187,12 +183,18 @@ def installation():
     
     
     ## FINISHING
+    # settings apache php
+    rm("/data/data/com.termux/files/usr/etc/apache2/httpd.conf")
+    move("ngodingyuk/httpd.conf","/data/data/com.termux/files/usr/etc/apache2/httpd.conf")
+    # move info.json
     move("ngodingyuk/info.json",".ngodingyuk/info.json")
-    rmrf("ngodingyuk/.git")
+    # rename install.py ~> start.py
     rename("ngodingyuk/install.py","ngodingyuk/start.py")
     # mysql crack root 2x (agar bisa membuka phpmyadmin)
     execute('mysql -u $(whoami) -e "use mysql; set password for \'root\'@\'localhost\' = password(\'\'); flush privileges; quit;"')
     execute('mysql -u $(whoami) -e "use mysql; set password for \'root\'@\'localhost\' = password(\'\'); flush privileges; quit;"')
+    # hapus sampah
+    rmrf("ngodingyuk/.git")
     
     
     ## THANKS YOU
@@ -415,15 +417,6 @@ else:
                     #
                     #
                 elif select_menu == 1: # (run) start server | stop server | update =================
-                    # if cek_local_info()['version'] == info['version']:
-                        # if findThisProcess("php")==0 and findThisProcess("mysqld_safe")==0 and findThisProcess("mariadbd")==0 :
-                            # # if start server
-                            # start_server()
-                        # else:
-                            # # if stop server
-                            # stop_server()
-                    # else:
-                        # # if update
                     select_menu = 0 # setelah selesai start server | stop server | update, auto back
                 elif select_menu == 2: # new project ~> pilih project ==============================
                     if pilihan_str == 0: # back
