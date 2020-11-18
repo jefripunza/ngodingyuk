@@ -200,6 +200,7 @@ def installation():
 ####################################################################
 #                         Uninstall
 def uninstall():
+    stop_server()
     uninstall_ok = True
     
     rmrf(".blackicecoder")
