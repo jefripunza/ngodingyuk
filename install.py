@@ -86,6 +86,7 @@ def requests_retry_session(
     return session
 
 def get_info():
+    terminal_clear()
     t0 = time.time()
     try:
         print("Get info from database...")
