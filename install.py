@@ -201,7 +201,8 @@ def installation():
 ####################################################################
 #                         Uninstall
 def uninstall():
-    stop_server()
+    if findThisProcess("php")!=0 and findThisProcess("mysqld_safe")!=0 and findThisProcess("mariadbd")!=0 :
+        stop_server()
     uninstall_ok = True
     
     rmrf(".blackicecoder")
@@ -213,7 +214,7 @@ def uninstall():
     rmrf("ngodingyuk")
     
     thanks()
-    time.sleep(3)
+    anonymous()
     bye()
     sys.exit()
 ####################################################################
@@ -243,6 +244,45 @@ def banner():
     print (  Y+"|                                                            |")
     print (  Y+"| "+R+"version: "+W+cek_local_info()['version']+"            "+W+" Author : Jefri Herdi Triyanto"+Y+"   |")
     print (  Y+"|                                                            |")
+
+def anonymous():
+    space = "     "
+    anonymous  = space+"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMMNmdhyyssooooossyyhdNMMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMds+:.`                     .-/shNMMMMMMMM\n"
+    anonymous += space+"MMMMMMd/`                                `:hMMMMMM\n"
+    anonymous += space+"MMMMMy`                                     +MMMMM\n"
+    anonymous += space+"MMMMd                                        yMMMM\n"
+    anonymous += space+"MMMM:                                        .MMMM\n"
+    anonymous += space+"MMMm    `:+osss+/-              -/oyyyso:`    hMMM\n"
+    anonymous += space+"MMMs  `+s++hdmNNMNms-        -smNMNmmdh+os+.  oMMM\n"
+    anonymous += space+"MMM/  /.   .:+ymddmMNy      sNMmddmy+:.   `:` :MMM\n"
+    anonymous += space+"MMM.           .+dmddy      yhhmdo.           .MMM\n"
+    anonymous += space+"MMM`             `/Nm:      .hd+`             `MMM\n"
+    anonymous += space+"MMM    `:oydddhs/. :NN-     +/` ./yhdddhs:`    MMM\n"
+    anonymous += space+"MMN  ./dMMMMMMMMMNd:dMh       -dNMMMMMMMMMd/-.`NMM\n"
+    anonymous += space+"MMN  sNmddhhhhyyss+.dMN       `+ooooo+++++/::::NMM\n"
+    anonymous += space+"MMN  ..``           mMN                        NMM\n"
+    anonymous += space+"MMM+               .MMN                        MMM\n"
+    anonymous += space+"MMMN/              +MMm                       /MMM\n"
+    anonymous += space+"MMMdhs.          `:mMMd      ``             .oNMMM\n"
+    anonymous += space+"MMMN-hmy++:////-/dMmMMy      :+/  `.-...-:/yshMMMM\n"
+    anonymous += space+"MMMMh.mdhMo..`  oMy.MM/        o  `-::/mNymd.NMMMM\n"
+    anonymous += space+"MMMMMs.h+hMy-`   :..mM.              -dMo:m-sMMMMM\n"
+    anonymous += space+"MMMMMMo`sshNNds/.``.sMs:.-/yo`   `.:yNN+/d-/MMMMMM\n"
+    anonymous += space+"MMMMMMMo`+dsymNMMmdNMMMmsmMMMmyyhdNMNh/yd-/NMMMMMM\n"
+    anonymous += space+"MMMMMMMMs`:md/:+ydmNNNh-`.sMMMNNNmy+.-dh./NMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMy`.dMd/` `..-::::///::-`   `so`oMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMd.`dMN:---.```````       `s:`yMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMm-`dm   `.:hNNNmo      .o.-dMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMN/`d.     :MMMm      .+`/NMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMy-.     dMMMN.      `sMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMMm:    -MMNNM+     .dMMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMMMMo    NMMMM-    +NMMMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMMMMMd:  oMMMd   /dMMMMMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMMMMMMMmyyMMMhoyNMMMMMMMMMMMMMMMMMMMM\n"
+    anonymous += space+"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+    print(anonymous)
 
 def bye():
     if uninstall_ok == False:
