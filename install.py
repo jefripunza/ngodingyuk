@@ -121,7 +121,7 @@ def start_server():
     execute("nohup apachectl -k start                        > ~/.ngoding-debug/apache2.log          2>&1 &")
     execute("nohup php -S 0.0.0.0:8001 -t ~/.blackicecoder/  > ~/.ngoding-debug/blackicecoder.log    2>&1 &")
     execute("nohup php -S 0.0.0.0:8002 -t ~/.phpmyadmin/     > ~/.ngoding-debug/phpmyadmin.log       2>&1 &")
-    execute("nohup php -S 0.0.0.0:8002 -t ~/.filemanager/    > ~/.ngoding-debug/filemanager.log      2>&1 &")
+    execute("nohup php -S 0.0.0.0:8003 -t ~/.filemanager/    > ~/.ngoding-debug/filemanager.log      2>&1 &")
     execute("nohup php -S 0.0.0.0:8004 -t ~/.ngoding-debug/  > ~/.ngoding-debug/ngoding-debug.log    2>&1 &")
     execute("nohup mysqld_safe                               > ~/.ngoding-debug/mysqld_safe.log      2>&1 &")
 
@@ -200,6 +200,8 @@ def installation():
 ####################################################################
 #                         Uninstall
 def uninstall():
+    uninstall_ok = True
+    
     rmrf(".blackicecoder")
     rmrf(".phpmyadmin")
     rmrf(".filemanager")
@@ -221,6 +223,8 @@ select_menu = 0
 new_project_pilih = 0
 
 info = get_info() # dapatkan info dari database
+
+uninstall_ok = False
 ####################################################################
 #                            Setup Style
 def banner():
@@ -260,14 +264,16 @@ def thanks():
     print (  Y+"| "+G+"      | | |  _  |/ ___ \| |\  | . \    | || |_| | |_| |   "+Y+" |")
     print (  Y+"| "+G+"      |_| |_| |_/_/   \_\_| \_|_|\_\   |_| \___/ \___/    "+Y+" |")
     print (  Y+"|                                                            |")
-    print (  Y+"0{==========================================================}0\n")
-    print (  Y+"  start server"+R+": "+G+"cd ~/ngodingyuk && python2 start.py \n"+W)
+    print (  Y+"0{==========================================================}0"+W)
+    if uninstall_ok == False:
+        print (  Y+"\n  start server"+R+": "+G+"cd ~/ngodingyuk && python2 start.py \n"+W)
 
 def menu():
     print (  Y+"0{========================="+W+" MENU "+Y+"===========================}0")
     if jangan_kosong == False:
         print (  R+"   ~> tolong jangan mengkosongkan pilihan!")
-    print (  Y+"   "+B+"["+R+"+"+B+"] "+W+"pilih menu yang ingin di eksekusi :")
+    if select_menu != 5:
+        print (  Y+"   "+B+"["+R+"+"+B+"] "+W+"pilih menu yang ingin di eksekusi :")
 
     if select_menu == 0: # pilihan home
         ## reset variable pointer
@@ -288,7 +294,7 @@ def menu():
             print (  Y+"   ["+W+"9"+Y+"] "+C+"What's New!")
         else:
             print (  Y+"   ["+W+"1"+Y+"] "+C+"update! ("+G+info['version']+B+")")
-            
+
         print (  Y+"   ["+W+"0"+Y+"] "+C+"Exit!")
         #
         #
