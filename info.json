@@ -18,10 +18,9 @@
     ],
     "whats_new": [
         {
-            "version": "1.0.0",
+            "version": "1.0.12",
             "update": [
-                "[SUPPORT] NodeJS, ReactJS, dan React Native",
-                "Awal pembuatan! November 2020"
+                "[FIX] Test what's new > info.json"
             ]
         },
         {
@@ -31,9 +30,10 @@
             ]
         },
         {
-            "version": "1.0.12",
+            "version": "1.0.0",
             "update": [
-                "[FIX] Test what's new > info.json"
+                "[SUPPORT] NodeJS, ReactJS, dan React Native",
+                "Awal pembuatan! November 2020"
             ]
         }
     ]
