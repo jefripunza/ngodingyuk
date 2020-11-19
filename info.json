@@ -18,16 +18,22 @@
     ],
     "whats_new": [
         {
+            "version": "1.0.0",
+            "update": [
+                "[SUPPORT] NodeJS, ReactJS, dan React Native",
+                "Awal pembuatan! November 2020"
+            ]
+        },
+        {
             "version": "1.0.11",
             "update": [
                 "[FIX] Bug Apache2 httpd.conf"
             ]
         },
         {
-            "version": "1.0.0",
+            "version": "1.0.12",
             "update": [
-                "[SUPPORT] NodeJS, ReactJS, dan React Native",
-                "Awal pembuatan! November 2020"
+                "[FIX] Test what's new > info.json"
             ]
         }
     ]
