@@ -21,7 +21,13 @@
             "version": "1.0.0",
             "update": [
                 "Awal pembuatan! November 2020",
-                "include project: NodeJS, ReactJS, dan React Native"
+                "[SUPPORT] NodeJS, ReactJS, dan React Native"
+            ]
+        },
+        {
+            "version": "1.0.11",
+            "update": [
+                "[FIX] Bug Apache2 httpd.conf"
             ]
         }
     ]
